@@ -1,0 +1,27 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <Button
+        android:id="@+id/bt_pull_to_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/pull_refresh"
+        android:textSize="25sp" />
+
+    <Button
+        android:id="@+id/bt_load_more"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/load_more"
+        android:textSize="25sp" />
+
+    <Button
+        android:id="@+id/bt_pull_and_loadmore"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/both"
+        android:textSize="25sp" />
+
+</LinearLayout>
