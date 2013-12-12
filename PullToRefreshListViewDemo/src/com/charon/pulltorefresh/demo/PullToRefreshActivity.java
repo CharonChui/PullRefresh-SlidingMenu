@@ -1,4 +1,4 @@
-package com.charon.pulltorefreshlistview;
+package com.charon.pulltorefresh.demo;
 
 import java.util.ArrayList;
 
@@ -8,11 +8,14 @@ import android.os.Bundle;
 import android.os.SystemClock;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.charon.pulltorefreshlistview.view.PullToRefreshListView;
-import com.charon.pulltorefreshlistview.view.PullToRefreshListView.OnRefreshListener;
+import com.charon.pulltorefreshlistview.PullToRefreshListView;
+import com.charon.pulltorefreshlistview.PullToRefreshListView.OnRefreshListener;
 
 public class PullToRefreshActivity extends Activity {
 	private PullToRefreshListView mPullToRefreshListView;
@@ -50,7 +53,7 @@ public class PullToRefreshActivity extends Activity {
 
 					@Override
 					protected Void doInBackground(Void... params) {
-						SystemClock.sleep(2000);
+						SystemClock.sleep(1000);
 						data.add("add after refresh");
 						return null;
 					}
@@ -64,6 +67,29 @@ public class PullToRefreshActivity extends Activity {
 				}.execute();
 			}
 		});
+
+		mPullToRefreshListView
+				.setOnItemClickListener(new OnItemClickListener() {
+
+					@Override
+					public void onItemClick(AdapterView<?> parent, View view,
+							int position, long id) {
+						// If you call addHeaderView, the position will contains
+						// the count of header view.
+						// int realPosition = position
+						// - mPullToRefreshListView.getHeaderViewsCount();
+						// Toast.makeText(PullToRefreshActivity.this,
+						// data.get(realPosition), Toast.LENGTH_SHORT).show();
+
+						Toast.makeText(
+								PullToRefreshActivity.this,
+								(String) mPullToRefreshListView.getAdapter()
+										.getItem(position), Toast.LENGTH_SHORT)
+								.show();
+
+					}
+
+				});
 
 	}
 
@@ -87,6 +113,7 @@ public class PullToRefreshActivity extends Activity {
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			TextView textView = new TextView(getApplicationContext());
+			textView.setTextSize(20);
 			textView.setText(data.get(position));
 
 			return textView;

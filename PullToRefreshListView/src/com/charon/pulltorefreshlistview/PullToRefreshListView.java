@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.charon.pulltorefreshlistview.view;
+package com.charon.pulltorefreshlistview;
 
 import java.util.Date;
 
@@ -46,6 +46,7 @@ public class PullToRefreshListView extends ListView {
 	 * a scale ratio.
 	 */
 	private static final int RATIO = 3;
+
 	private View mHeader;
 	private ImageView iv_arrow;
 	private ProgressBar pb_refresh;
@@ -100,6 +101,8 @@ public class PullToRefreshListView extends ListView {
 	 */
 	private boolean isBack;
 
+	private OnScrollListener mOnScrollListener;
+
 	public PullToRefreshListView(Context context, AttributeSet attrs,
 			int defStyle) {
 		super(context, attrs, defStyle);
@@ -138,16 +141,25 @@ public class PullToRefreshListView extends ListView {
 
 		mState = State.ORIGNAL;
 
-		this.setOnScrollListener(new OnScrollListener() {
+		super.setOnScrollListener(new OnScrollListener() {
 
 			@Override
 			public void onScrollStateChanged(AbsListView view, int scrollState) {
-
+				// Avoid override when use setOnScrollListener
+				if (mOnScrollListener != null) {
+					mOnScrollListener.onScrollStateChanged(view, scrollState);
+				}
 			}
 
 			@Override
 			public void onScroll(AbsListView view, int firstVisibleItem,
 					int visibleItemCount, int totalItemCount) {
+
+				if (mOnScrollListener != null) {
+					mOnScrollListener.onScroll(view, firstVisibleItem,
+							visibleItemCount, totalItemCount);
+				}
+
 				if (firstVisibleItem == 0) {
 					isCanPullToRefresh = true;
 				} else {
@@ -247,7 +259,6 @@ public class PullToRefreshListView extends ListView {
 				break;
 			} else if (mState == State.PULL_TO_REFRESH) {
 				mState = State.ORIGNAL;
-
 			} else if (mState == State.RELEASE_TO_REFRESH) {
 				mState = State.REFRESHING;
 			} else {
@@ -274,7 +285,6 @@ public class PullToRefreshListView extends ListView {
 			tv_title.setVisibility(View.VISIBLE);
 			iv_arrow.clearAnimation();
 			mHeader.setPadding(0, -mHeaderHeight, 0, 0);
-
 		} else if (mState == State.PULL_TO_REFRESH) {
 			iv_arrow.setVisibility(View.VISIBLE);
 			pb_refresh.setVisibility(View.GONE);
@@ -289,7 +299,6 @@ public class PullToRefreshListView extends ListView {
 				iv_arrow.startAnimation(animation);
 				isBack = false;
 			}
-
 		} else if (mState == State.RELEASE_TO_REFRESH) {
 			iv_arrow.setVisibility(View.VISIBLE);
 			pb_refresh.setVisibility(View.GONE);
@@ -337,6 +346,11 @@ public class PullToRefreshListView extends ListView {
 		tv_time.setText(getResources().getString(R.string.update_time)
 				+ new Date().toLocaleString());
 		super.setAdapter(adapter);
+	}
+
+	@Override
+	public void setOnScrollListener(OnScrollListener l) {
+		this.mOnScrollListener = l;
 	}
 
 	/**

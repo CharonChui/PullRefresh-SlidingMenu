@@ -1,4 +1,4 @@
-package com.charon.pulltorefreshlistview;
+package com.charon.pulltorefresh.demo;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -6,13 +6,15 @@ import java.util.LinkedList;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.SystemClock;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.charon.pulltorefreshlistview.view.LoadMoreListView;
-import com.charon.pulltorefreshlistview.view.LoadMoreListView.OnLoadMoreListener;
+import com.charon.pulltorefreshlistview.LoadMoreListView;
+import com.charon.pulltorefreshlistview.LoadMoreListView.OnLoadMoreListener;
 
 public class LoadMoreActivity extends Activity {
 	private LoadMoreListView mLoadMoreListView;
@@ -67,8 +69,10 @@ public class LoadMoreActivity extends Activity {
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
-			TextView view = (TextView) View.inflate(LoadMoreActivity.this,
-					android.R.layout.simple_list_item_1, null);
+			TextView view = new TextView(LoadMoreActivity.this);
+			view.setTextSize(20);
+			view.setHeight(100);
+			view.setGravity(Gravity.CENTER_VERTICAL);
 			view.setText(mListItems.get(position));
 			return view;
 		}
@@ -84,21 +88,15 @@ public class LoadMoreActivity extends Activity {
 				return null;
 			}
 
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-			}
+			SystemClock.sleep(1000);
 
-			for (int i = 0; i < mNames.length; i++)
-				mListItems.add(mNames[i]);
+			mListItems.add("Load More...........");
 
 			return null;
 		}
 
 		@Override
 		protected void onPostExecute(Void result) {
-			mListItems.add("Added after load more");
-
 			adapter.notifyDataSetChanged();
 
 			mLoadMoreListView.onLoadMoreComplete();

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">PullToRefreshListViewDemo</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="pull_refresh">下拉刷新</string>
+    <string name="load_more">加载更多</string>
+    <string name="both">二合一</string>
+</resources>

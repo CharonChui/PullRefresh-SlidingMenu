@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.charon.pulltorefreshlistview.view;
+package com.charon.pulltorefreshlistview;
 
 import com.charon.pulltorefreshlistview.R;
 
@@ -22,19 +22,15 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.AbsListView;
-import android.widget.ListView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 
 /**
  * Android load more ListView when scroll down.
  * 
  * @author Charon Chui
  */
-public class LoadMoreListView extends ListView {
+public class PullRefreshAndLoadMoreListView extends PullToRefreshListView {
+	protected static final String TAG = "LoadMoreListView";
 	private View mFooterView;
-	private ProgressBar mProgressBar;
-	private TextView mTextView;
 	private OnScrollListener mOnScrollListener;
 	private OnLoadMoreListener mOnLoadMoreListener;
 
@@ -45,27 +41,26 @@ public class LoadMoreListView extends ListView {
 
 	private int mCurrentScrollState;
 
-	public LoadMoreListView(Context context, AttributeSet attrs, int defStyle) {
+	public PullRefreshAndLoadMoreListView(Context context, AttributeSet attrs,
+			int defStyle) {
 		super(context, attrs, defStyle);
 		init(context);
 	}
 
-	public LoadMoreListView(Context context, AttributeSet attrs) {
+	public PullRefreshAndLoadMoreListView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		init(context);
 	}
 
-	public LoadMoreListView(Context context) {
+	public PullRefreshAndLoadMoreListView(Context context) {
 		super(context);
 		init(context);
 	}
 
 	private void init(Context context) {
 		mFooterView = View.inflate(context, R.layout.load_more_footer, null);
-		mProgressBar = (ProgressBar) mFooterView
-				.findViewById(R.id.load_more_pb);
-		mTextView = (TextView) mFooterView.findViewById(R.id.load_more_tv);
 		addFooterView(mFooterView);
+		hideFooterView();
 		/*
 		 * Must use super.setOnScrollListener() here to avoid override when call
 		 * this view's setOnScrollListener method
@@ -78,8 +73,6 @@ public class LoadMoreListView extends ListView {
 	 */
 	private void hideFooterView() {
 		mFooterView.setVisibility(View.GONE);
-		mProgressBar.setVisibility(View.GONE);
-		mTextView.setVisibility(View.GONE);
 	}
 
 	/**
@@ -87,8 +80,6 @@ public class LoadMoreListView extends ListView {
 	 */
 	private void showFooterView() {
 		mFooterView.setVisibility(View.VISIBLE);
-		mProgressBar.setVisibility(View.VISIBLE);
-		mTextView.setVisibility(View.VISIBLE);
 	}
 
 	@Override
@@ -134,15 +125,13 @@ public class LoadMoreListView extends ListView {
 				mOnScrollListener.onScroll(view, firstVisibleItem,
 						visibleItemCount, totalItemCount);
 			}
-
+			// The count of footer view will be add to visibleItemCount also are
+			// added to totalItemCount
 			if (visibleItemCount == totalItemCount) {
 				// If all the item can not fill screen, we should make the
 				// footer view invisible.
 				hideFooterView();
-				return;
-			}
-
-			if (!mIsLoading
+			} else if (!mIsLoading
 					&& (firstVisibleItem + visibleItemCount >= totalItemCount)
 					&& mCurrentScrollState != SCROLL_STATE_IDLE) {
 				showFooterView();

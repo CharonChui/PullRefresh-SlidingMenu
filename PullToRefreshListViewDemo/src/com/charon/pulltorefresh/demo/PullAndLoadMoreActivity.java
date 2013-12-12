@@ -1,11 +1,7 @@
-package com.charon.pulltorefreshlistview;
+package com.charon.pulltorefresh.demo;
 
 import java.util.Arrays;
 import java.util.LinkedList;
-
-import com.charon.pulltorefreshlistview.view.PullRefreshAndLoadMoreListView;
-import com.charon.pulltorefreshlistview.view.PullRefreshAndLoadMoreListView.OnLoadMoreListener;
-import com.charon.pulltorefreshlistview.view.PullRefreshAndLoadMoreListView.OnRefreshListener;
 
 import android.app.Activity;
 import android.os.AsyncTask;
@@ -13,8 +9,15 @@ import android.os.Bundle;
 import android.os.SystemClock;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
+
+import com.charon.pulltorefreshlistview.PullRefreshAndLoadMoreListView;
+import com.charon.pulltorefreshlistview.PullRefreshAndLoadMoreListView.OnLoadMoreListener;
+import com.charon.pulltorefreshlistview.PullToRefreshListView.OnRefreshListener;
 
 public class PullAndLoadMoreActivity extends Activity {
 	private PullRefreshAndLoadMoreListView mPullRefreshAndLoadMoreListView;
@@ -42,7 +45,6 @@ public class PullAndLoadMoreActivity extends Activity {
 		mListItems.addAll(Arrays.asList(mNames));
 
 		adapter = new MyAdapter();
-
 		mPullRefreshAndLoadMoreListView.setAdapter(adapter);
 
 		mPullRefreshAndLoadMoreListView
@@ -54,7 +56,7 @@ public class PullAndLoadMoreActivity extends Activity {
 
 							@Override
 							protected Void doInBackground(Void... params) {
-								SystemClock.sleep(2000);
+								SystemClock.sleep(1000);
 								mListItems.add("add after refresh");
 								return null;
 							}
@@ -70,8 +72,6 @@ public class PullAndLoadMoreActivity extends Activity {
 					}
 				});
 
-		mPullRefreshAndLoadMoreListView.setAdapter(adapter);
-
 		mPullRefreshAndLoadMoreListView
 				.setOnLoadMoreListener(new OnLoadMoreListener() {
 
@@ -79,6 +79,31 @@ public class PullAndLoadMoreActivity extends Activity {
 					public void onLoadMore() {
 						new LoadDataTask().execute();
 					}
+				});
+
+		mPullRefreshAndLoadMoreListView
+				.setOnItemClickListener(new OnItemClickListener() {
+
+					@Override
+					public void onItemClick(AdapterView<?> parent, View view,
+							int position, long id) {
+						// If you call addHeaderView, the position will contains
+						// the count of header view.
+						// int realPosition = position
+						// -
+						// mPullRefreshAndLoadMoreListView.getHeaderViewsCount();
+						// Toast.makeText(PullAndLoadMoreActivity.this,
+						// mListItems.get(realPosition),
+						// Toast.LENGTH_SHORT).show();
+
+						Toast.makeText(
+								PullAndLoadMoreActivity.this,
+								(String) mPullRefreshAndLoadMoreListView
+										.getAdapter().getItem(position),
+								Toast.LENGTH_SHORT).show();
+
+					}
+
 				});
 
 	}
@@ -103,6 +128,7 @@ public class PullAndLoadMoreActivity extends Activity {
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			TextView textView = new TextView(getApplicationContext());
+			textView.setTextSize(20);
 			textView.setText(mListItems.get(position));
 
 			return textView;
@@ -118,21 +144,14 @@ public class PullAndLoadMoreActivity extends Activity {
 				return null;
 			}
 
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-			}
+			SystemClock.sleep(1000);
 
-			for (int i = 0; i < mNames.length; i++)
-				mListItems.add(mNames[i]);
-
+			mListItems.add("Load More....");
 			return null;
 		}
 
 		@Override
 		protected void onPostExecute(Void result) {
-			mListItems.add("Added after load more");
-
 			adapter.notifyDataSetChanged();
 
 			mPullRefreshAndLoadMoreListView.onLoadMoreComplete();

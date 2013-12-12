@@ -1,4 +1,4 @@
-package com.charon.pulltorefreshlistview;
+package com.charon.pulltorefresh.demo;
 
 import android.app.Activity;
 import android.content.Intent;

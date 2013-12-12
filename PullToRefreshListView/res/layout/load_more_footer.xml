@@ -11,15 +11,13 @@
         style="@android:style/Widget.ProgressBar.Small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="10dp"
-        android:visibility="gone" />
+        android:layout_marginRight="10dp" />
 
     <TextView
         android:id="@+id/load_more_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="正在加载中..."
-        android:visibility="gone"
         tools:ignore="HardcodedText" />
 
 </LinearLayout>
