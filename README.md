@@ -5,6 +5,7 @@ A customizable ListView implementation that has 'Pull to Refresh' functionality.
 
 Usage
 ---
+
 Check out the [example project](https://github.com/CharonChui/PullToRefreshListView) 
 in this repository for an implementation example. 
 
@@ -45,11 +46,13 @@ mPullToRefreshListView.setOnRefreshListener(new OnRefreshListener() {
 
 Author
 ===
+
 - 邮箱 ：charon.chui@gmail.com
 - Good Luck! 
 
 License
 ===
+
 ```                            
 Copyright (C) 2013 Charon Chui <charon.chui@gmail.com>
 
