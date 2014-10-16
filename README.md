@@ -3,7 +3,7 @@ PullToRefreshListView
 
 A customizable ListView implementation that has 'Pull to Refresh' functionality. This ListView can be used as a replacement of the normal Android android.widget.ListView class.
 
-    ![image](https://raw.githubusercontent.com/CharonChui/AndroidNote/master/Pic/pullrefresh.gif)    
+![image](https://raw.githubusercontent.com/CharonChui/AndroidNote/master/Pic/pullrefresh.gif)    
 
 Usage
 ---
