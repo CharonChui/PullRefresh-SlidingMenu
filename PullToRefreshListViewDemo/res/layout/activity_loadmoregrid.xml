@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1"
+        android:fillViewport="true" >
+
+        <com.charon.pulltorefreshlistview.LoadMoreGridView
+            android:id="@+id/lmgv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:cacheColorHint="@null"
+            android:fitsSystemWindows="true"
+            android:horizontalSpacing="10dip"
+            android:listSelector="@android:color/transparent"
+            android:numColumns="2"
+            android:paddingLeft="13dip"
+            android:paddingRight="13dip"
+            android:paddingTop="10dip"
+            android:scrollbars="none"
+            android:verticalSpacing="12dip" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/auto_load_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingBottom="10dip"
+        android:paddingTop="10dip"
+        android:visibility="gone" >
+
+        <ProgressBar
+            android:layout_width="23dip"
+            android:layout_height="23dip"
+            android:layout_marginRight="10dip" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="正在加载中"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+</LinearLayout>

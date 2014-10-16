@@ -25,7 +25,9 @@ public class PullAndLoadMoreActivity extends Activity {
 
 	private String[] mNames = { "Fabian", "Carlos", "Alex", "Andrea", "Karla",
 			"Freddy", "Lazaro", "Hector", "Carolina", "Edwin", "Jhon",
-			"Edelmira", "Andres" };
+			"Edelmira", "Andres", "Fabian", "Carlos", "Alex", "Andrea", "Karla",
+            "Freddy", "Lazaro", "Hector", "Carolina", "Edwin", "Jhon",
+            "Edelmira", "Andres" };
 	private LinkedList<String> mListItems;
 
 	@Override

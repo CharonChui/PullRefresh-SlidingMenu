@@ -7,4 +7,6 @@
     <string name="pull_refresh">下拉刷新</string>
     <string name="load_more">加载更多</string>
     <string name="both">二合一</string>
+    <string name="load_more_grid">自动加载GridView</string>
+
 </resources>

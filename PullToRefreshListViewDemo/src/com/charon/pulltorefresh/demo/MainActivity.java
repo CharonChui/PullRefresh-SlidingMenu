@@ -1,3 +1,4 @@
+
 package com.charon.pulltorefresh.demo;
 
 import android.app.Activity;
@@ -8,41 +9,47 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 
 public class MainActivity extends Activity implements OnClickListener {
-	private Button bt_pull_to_refresh;
-	private Button bt_load_more;
-	private Button bt_pull_and_loadmore;
+    private Button bt_pull_to_refresh;
+    private Button bt_load_more;
+    private Button bt_pull_and_loadmore;
+    private Button bt_pull_loadmore_grid;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
-		findView();
-	}
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        findView();
+    }
 
-	private void findView() {
-		bt_pull_to_refresh = (Button) findViewById(R.id.bt_pull_to_refresh);
-		bt_load_more = (Button) findViewById(R.id.bt_load_more);
-		bt_pull_and_loadmore = (Button) findViewById(R.id.bt_pull_and_loadmore);
-		bt_pull_to_refresh.setOnClickListener(this);
-		bt_load_more.setOnClickListener(this);
-		bt_pull_and_loadmore.setOnClickListener(this);
-	}
+    private void findView() {
+        bt_pull_to_refresh = (Button) findViewById(R.id.bt_pull_to_refresh);
+        bt_load_more = (Button) findViewById(R.id.bt_load_more);
+        bt_pull_and_loadmore = (Button) findViewById(R.id.bt_pull_and_loadmore);
+        bt_pull_to_refresh.setOnClickListener(this);
+        bt_load_more.setOnClickListener(this);
+        bt_pull_and_loadmore.setOnClickListener(this);
+        bt_pull_loadmore_grid = (Button) findViewById(R.id.bt_pull_loadmore_grid);
+        bt_pull_loadmore_grid.setOnClickListener(this);
+    }
 
-	@Override
-	public void onClick(View v) {
-		switch (v.getId()) {
-		case R.id.bt_pull_to_refresh:
-			startActivity(new Intent(this, PullToRefreshActivity.class));
-			break;
-		case R.id.bt_load_more:
-			startActivity(new Intent(this, LoadMoreActivity.class));
-			break;
-		case R.id.bt_pull_and_loadmore:
-			startActivity(new Intent(this, PullAndLoadMoreActivity.class));
-			break;
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.bt_pull_to_refresh:
+                startActivity(new Intent(this, PullToRefreshActivity.class));
+                break;
+            case R.id.bt_load_more:
+                startActivity(new Intent(this, LoadMoreActivity.class));
+                break;
+            case R.id.bt_pull_and_loadmore:
+                startActivity(new Intent(this, PullAndLoadMoreActivity.class));
+                break;
+            case R.id.bt_pull_loadmore_grid:
+                startActivity(new Intent(this, LoadMoreGridActivity.class));
+                break;
 
-		default:
-			break;
-		}
-	}
+            default:
+                break;
+        }
+    }
 }
