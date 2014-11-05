@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fl_right"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <!-- 必须要通过布局中的子空间来实现宽度如200dp，如果要在最外侧的布局设置宽度的话是没有效果的 -->
+
+    <Button
+        android:id="@+id/btn_right"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:text="Right" />
+
+</FrameLayout>

@@ -1,0 +1,5 @@
+<!-- 外面不能再嵌套其他布局 -->
+<com.charon.slidingmenu.view.SlidingMenu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/sm"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" />

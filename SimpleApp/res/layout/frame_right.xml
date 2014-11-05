@@ -1,0 +1,6 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fl_right"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent" >
+
+</FrameLayout>
