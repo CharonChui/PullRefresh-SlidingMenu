@@ -1,7 +1,7 @@
 PullRefresh-SlidingMenu
 ===
 
-This has three parts, include PullToRefreshListView、 SlidingMenu、 ScrollingTabs.
+Bundle contains PullToRefreshListView、 SlidingMenu、 ScrollingTabs.
 
                  
 PullToRefreshListView
