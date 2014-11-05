@@ -1,4 +1,4 @@
-PullRefresh&SlidingMenu
+PullRefresh-SlidingMenu
 ===
 
 This has three parts, include PullToRefreshListView、 SlidingMenu、 ScrollingTabs.
@@ -57,7 +57,7 @@ SlidingMenu
 
 SlidingMenu with left and right menu,This is an original component demo, does not rely on any third-party lib library.
 
-![image](https://raw.githubusercontent.com/CharonChui/PullRefresh&SlidingMenu/master/Pics/SlidingMenu.gif)  
+![image](https://raw.githubusercontent.com/CharonChui/PullRefresh-SlidingMenu/master/Pics/SlidingMenu.gif)  
 
 Usage
 ===
@@ -126,7 +126,7 @@ ScrollingTabs
 
 Interactive paging indicator widget, compatible with the ViewPager from the Android Support Library.
 
-![image](https://raw.githubusercontent.com/CharonChui/PullRefresh&SlidingMenu/master/Pics/ScrollingTabs.gif)  
+![image](https://raw.githubusercontent.com/CharonChui/PullRefresh-SlidingMenu/master/Pics/ScrollingTabs.gif)  
 
 Usage
 ===
@@ -173,7 +173,7 @@ SimpleApp
 
 SimpleApp using this three projects and [AndroidDevelopFramework](https://github.com/CharonChui/AndroidDevelopFramework)
 
-![image](https://raw.githubusercontent.com/CharonChui/PullRefresh&SlidingMenu/master/Pics/SimpleApp.gif)  
+![image](https://raw.githubusercontent.com/CharonChui/PullRefresh-SlidingMenu/master/Pics/SimpleApp.gif)  
 
 
 Developed By
