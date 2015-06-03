@@ -29,31 +29,31 @@ import android.widget.LinearLayout;
 
 public class ScrollingTabs extends HorizontalScrollView implements OnPageChangeListener {
 
-    private LinearLayout mContainer;
+    protected LinearLayout mContainer;
 
-    private ViewPager mViewPager;
+    protected ViewPager mViewPager;
 
-    private TabAdapter mTabAdapter;
+    protected TabAdapter mTabAdapter;
 
-    private int mWindowWidth;
+    protected int mWindowWidth;
     /**
      * True if have segmentation view between two tab view.
      */
-    private boolean isUseSeperator;
+    protected boolean isUseSeperator;
 
-    private TabClickListener mTabClickListener;
+    protected TabClickListener mTabClickListener;
 
-    private PageSelectedListener mPageSelectedListener;
+    protected PageSelectedListener mPageSelectedListener;
 
     /**
      * The width of the tab view, usually it may be 0.
      */
-    private int tabWidth;
+    protected int tabWidth;
 
     /**
      * True if you want to make make all the tabs equals the width when the total width is less than the window width
      */
-    private boolean mEqualWidth;
+    protected boolean mEqualWidth;
 
     public ScrollingTabs(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
@@ -70,7 +70,7 @@ public class ScrollingTabs extends HorizontalScrollView implements OnPageChangeL
         init(context);
     }
 
-    private void init(Context context) {
+    protected void init(Context context) {
         this.setHorizontalScrollBarEnabled(false);
         this.setHorizontalFadingEdgeEnabled(false);
 
@@ -86,7 +86,7 @@ public class ScrollingTabs extends HorizontalScrollView implements OnPageChangeL
         mWindowWidth = getWindowWidth(context);
     }
 
-    private int getWindowWidth(Context context) {
+    public static int getWindowWidth(Context context) {
         WindowManager manager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         DisplayMetrics outMetrics = new DisplayMetrics();
         manager.getDefaultDisplay().getMetrics(outMetrics);
@@ -193,7 +193,8 @@ public class ScrollingTabs extends HorizontalScrollView implements OnPageChangeL
      * 
      * @param position Position of the tab.
      */
-    private void selectTab(int position) {
+    protected void selectTab(int position) {
+    	
         if (!isUseSeperator) {
             for (int i = 0; i < mContainer.getChildCount(); i++) {
                 View tab = mContainer.getChildAt(i);
@@ -233,13 +234,23 @@ public class ScrollingTabs extends HorizontalScrollView implements OnPageChangeL
 
         int tabWidth = selectedView.getMeasuredWidth();
         int tabLeft = selectedView.getLeft();
-
         // (tabLeft + tabWidth / 2) is the distance from current tab's middle to
         // the left of the screen
         int distance = (tabLeft + tabWidth / 2) - mWindowWidth / 2;
 
         smoothScrollTo(distance, this.getScrollY());
     }
+    
+    protected View getSelectedView(int position) {
+        View selectedView = null;
+        if (!isUseSeperator) {
+            selectedView = mContainer.getChildAt(position);
+        } else {
+            selectedView = mContainer.getChildAt(position * 2);
+        }
+
+        return selectedView;
+	}
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {

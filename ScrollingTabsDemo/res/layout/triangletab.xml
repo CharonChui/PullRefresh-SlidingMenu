@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="100dip"
+    android:layout_height="100dip"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/tv_tabs"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="20dip"
+        android:layout_marginRight="20dip"
+        android:gravity="center"
+        android:text="Tabs"
+        android:textSize="20sp" />
+
+</LinearLayout>
