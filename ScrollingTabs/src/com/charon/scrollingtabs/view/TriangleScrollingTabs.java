@@ -24,12 +24,12 @@ import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.Path;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 
 public class TriangleScrollingTabs extends ScrollingTabs {
-	public static final int mTriangleWidth = 50;
-	public static final int mTriangleHeight = 25;
+	public static final int TRIANGLE_WIDHT = 50;
+	public static final int TRIANGLE_HEIGHT = 25;
+	public static final int STROKE_WIDHT = 5;
 	public static final int STROKE_COLOR = Color.parseColor("#ff0000");
 	public static final int FILL_COLOR = Color.parseColor("#00ff00");
 
@@ -58,32 +58,34 @@ public class TriangleScrollingTabs extends ScrollingTabs {
 	}
 
 	protected void initPaint() {
-		mStrokePaint = new Paint();
-		mStrokePaint.setAntiAlias(true);
-		mStrokePaint.setColor(STROKE_COLOR);
-		mStrokePaint.setStyle(Style.STROKE);
-		mStrokePaint.setStrokeWidth(5);
-		mStrokePaint.setPathEffect(new CornerPathEffect(3));
+		mStrokePaint = getPaint(STROKE_COLOR, Style.STROKE);
+		mFillPaint = getPaint(FILL_COLOR, Style.FILL);
 
-		mFillPaint = new Paint();
-		mFillPaint.setAntiAlias(true);
-		mFillPaint.setColor(FILL_COLOR);
-		mFillPaint.setStyle(Style.FILL);
-		mFillPaint.setPathEffect(new CornerPathEffect(3));
+		mStrokePath = getPath(0, 0, TRIANGLE_WIDHT / 2, -TRIANGLE_HEIGHT,
+				TRIANGLE_WIDHT, 0);
+		mFillPath = getPath(0, STROKE_WIDHT, TRIANGLE_WIDHT / 2,
+				-TRIANGLE_HEIGHT + STROKE_WIDHT, TRIANGLE_WIDHT - STROKE_WIDHT,
+				0);
+	}
 
-		mStrokePath = new Path();
-		mStrokePath.moveTo(0, 0);
+	public Paint getPaint(int color, Style style) {
+		Paint paint = new Paint();
+		paint.setAntiAlias(true);
+		paint.setColor(color);
+		paint.setStyle(style);
+		paint.setStrokeWidth(STROKE_WIDHT);
+		paint.setPathEffect(new CornerPathEffect(3));
+		return paint;
+	}
 
-		mStrokePath.lineTo(mTriangleWidth / 2, -mTriangleHeight);
-		mStrokePath.lineTo(mTriangleWidth, 0);
-		mStrokePath.close();
-
-		mFillPath = new Path();
-		mFillPath.moveTo(0, 5);
-
-		mFillPath.lineTo(mTriangleWidth / 2, -mTriangleHeight + 5);
-		mFillPath.lineTo(mTriangleWidth - 5, 0);
-		mFillPath.close();
+	public Path getPath(int leftX, int leftY, int topX, int topY, int rightX,
+			int rightY) {
+		Path path = new Path();
+		path.moveTo(leftX, leftY);
+		path.lineTo(topX, topY);
+		path.lineTo(rightX, rightY);
+		path.close();
+		return path;
 	}
 
 	/**
@@ -101,10 +103,9 @@ public class TriangleScrollingTabs extends ScrollingTabs {
 			if (width != 0) {
 				tabWidth = width;
 			}
-			if (tabWidth !=0 && mTriangleStartPosition == 0) {
-				mTriangleStartPosition = (int) ( tabWidth/2 - mTriangleWidth/2);
+			if (tabWidth != 0 && mTriangleStartPosition == 0) {
+				mTriangleStartPosition = (int) (tabWidth / 2 - TRIANGLE_WIDHT / 2);
 			}
-			Log.e("@@@", "selectTab : " + mTriangleStartPosition);
 		}
 	}
 
@@ -115,7 +116,6 @@ public class TriangleScrollingTabs extends ScrollingTabs {
 
 	private void drawTriangle(int position, float offset) {
 		int distance = (int) (tabWidth * (offset + position));
-		 
 		if (distance != 0) {
 			mTriangleCurrentPosition = distance;
 		}
@@ -127,9 +127,8 @@ public class TriangleScrollingTabs extends ScrollingTabs {
 		super.onDraw(canvas);
 		if (mTriangleStartPosition != 0) {
 			canvas.save();
-			canvas.translate(mTriangleStartPosition + mTriangleCurrentPosition, getHeight());
-			
-			Log.e("@@@", "onDraw : " + mTriangleStartPosition + "currentPosition : " + mTriangleCurrentPosition);
+			canvas.translate(mTriangleStartPosition + mTriangleCurrentPosition,
+					getHeight());
 			canvas.drawPath(mStrokePath, mStrokePaint);
 			canvas.drawPath(mFillPath, mFillPaint);
 			canvas.restore();
