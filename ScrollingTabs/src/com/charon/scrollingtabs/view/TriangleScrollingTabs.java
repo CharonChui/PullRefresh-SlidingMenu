@@ -31,7 +31,7 @@ public class TriangleScrollingTabs extends ScrollingTabs {
 	public static final int TRIANGLE_HEIGHT = 25;
 	public static final int STROKE_WIDHT = 5;
 	public static final int STROKE_COLOR = Color.parseColor("#ff0000");
-	public static final int FILL_COLOR = Color.parseColor("#00ff00");
+	public static final int FILL_COLOR = Color.parseColor("#ffffff");
 
 	private Paint mStrokePaint;
 	private Paint mFillPaint;
